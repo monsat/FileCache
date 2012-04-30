@@ -26,13 +26,19 @@ class FileCache extends File {
 		return parent::read($bytes, $mode, $force);
 	}
 
-	public function _expired($duration = '', $lastChange = false) {
+	public function _expired($duration = '', $lastChange = false, $time = false) {
 		if (empty($duration) && !empty($this->duration)) {
 			$duration = $this->duration;
+		}
+		if (!is_numeric($duration)) {
+			$duration = strtotime($duration);
 		}
 		if (empty($lastChange)) {
 			$lastChange = $this->lastChange();
 		}
-		return (time() - $duration) < $lastChange;
+		if (empty($time)) {
+			$time = time();
+		}
+		return $time > $lastChange + $duration;
 	}
 }
