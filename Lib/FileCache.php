@@ -20,7 +20,7 @@ class FileCache extends File {
 	public $duration = '+1 hours';
 
 	public function read($bytes = false, $mode = 'rb', $force = false) {
-		if ($this->_expired($lastChange)) {
+		if ($this->_expired()) {
 			return false;
 		}
 		return parent::read($bytes, $mode, $force);
