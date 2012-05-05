@@ -30,15 +30,15 @@ class FileCache extends File {
 		if (empty($duration) && !empty($this->duration)) {
 			$duration = $this->duration;
 		}
-		if (!is_numeric($duration)) {
-			$duration = strtotime($duration);
-		}
 		if (empty($lastChange)) {
 			$lastChange = $this->lastChange();
+		}
+		if (!is_numeric($duration)) {
+			$duration = strtotime($duration, $lastChange);
 		}
 		if (empty($time)) {
 			$time = time();
 		}
-		return $time > $lastChange + $duration;
+		return $time > $duration;
 	}
 }

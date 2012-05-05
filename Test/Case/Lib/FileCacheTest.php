@@ -15,9 +15,9 @@ class FileCacheTestCase extends CakeTestCase {
 	public function testExpired() {
 		$time = 1000000000;
 		$duration = '+4 hours';
-		$lastChange = $time - strtotime('+8 hours');
+		$lastChange = strtotime('-6 hours', $time);
 		$this->assertTrue($this->File->_expired($duration, $lastChange, $time));
-		$lastChange = $time - strtotime('+2 hours');
+		$lastChange = strtotime('-2 hours', $time);
 		$this->assertFalse($this->File->_expired($duration, $lastChange, $time));
 	}
 
